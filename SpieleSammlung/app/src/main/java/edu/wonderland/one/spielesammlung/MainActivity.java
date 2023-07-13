@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         linearLayout.addView(headerLine);
 
         //string array for games
-        String[] games = {"Hells Bells", "games2", "games3", "games4", "games5", "games6", "games7",
+        String[] games = {"Hells Bells", "Hells Bells 2", "games3", "games4", "games5", "games6", "games7",
                 "games8", "games9", "games10", "games2", "games3", "games4", "games5", "games6",
                 "games7", "games8", "games9", "games10" };
         //object for a listview
@@ -53,13 +53,15 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println("Hells Bells Clicked");
                         Log.d("switch", "0");
                         //Intent for the HellsBellsGames class
-                        Intent intent = new Intent(getApplicationContext(), HellsBellsGames.class);
+                        Intent game1Intent = new Intent(getApplicationContext(), HellsBellsGame.class);
                         //start the activity
-                        startActivity(intent);
+                        startActivity(game1Intent);
                         break;
                     case 1:
-                        System.out.println("games2 Clicked");
+                        System.out.println("Hells Bells 2 Clicked");
                         Log.d("switch", "1");
+                        Intent game2Intent = new Intent(getApplicationContext(), HellsBellsGame2.class);
+                        startActivity(game2Intent);
                         break;
                     case 2:
                         System.out.println("games3 Clicked");

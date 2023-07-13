@@ -8,14 +8,17 @@ import android.view.View;
 
 import androidx.core.content.ContextCompat;
 
-import java.util.Random;
 
 public class HellsBellsView extends View {
 
     private Drawable backgroundImage;
     private Context c;
 
-    private int imageX, imageY, imageWidth, imageHeight;
+    private int imageX, imageY;
+    public int imageWidth, imageHeight;
+    private int canvasWidth, canvasHeight;
+
+    private boolean isInit = false;
 
     public HellsBellsView(Context context) {
         super(context);
@@ -28,8 +31,8 @@ public class HellsBellsView extends View {
         backgroundImage = ContextCompat.getDrawable(context, R.drawable.hellsbells);
 
         //set the initial position of the image
-        imageY = 0;
-        imageX = 0;
+        //imageY = 0;
+        //imageX = 0;
         imageWidth = 500;
         imageHeight = 500;
     }
@@ -38,11 +41,52 @@ public class HellsBellsView extends View {
     protected void onDraw(Canvas canvas){
         canvas.drawColor(Color.BLACK);
 
+        if (!isInit){
+            canvasWidth = canvas.getWidth();
+            canvasHeight = canvas.getHeight();
+            isInit = true;
+        }
+
         //draw the background image
-        backgroundImage.setBounds(imageX, imageY, imageWidth, imageHeight);
+        backgroundImage.setBounds(getImageX(), getImageY(), imageX + imageWidth, imageY + imageHeight);
         backgroundImage.draw(canvas);
 
     }
 
+    public int getImageX() {
+        return imageX;
+    }
+
+    public void setImageX(int imageX) {
+
+        this.imageX = imageX;
+    }
+
+    public int getImageY() {
+        return imageY;
+    }
+
+    public void setImageY(int imageY) {
+        this.imageY = imageY;
+    }
+
+    public int getCanvasWidth(){
+        return canvasWidth;
+    }
+
+    public int getCanvasHeight(){
+        return canvasHeight;
+    }
+
+    //override the onTouchEvent method for hellsBellsView.setOnTouchListener
+    //to handle the touch event on the screen
+    public boolean performClick() {
+        super.performClick();
+        return true;
+    }
+
+    public boolean isHit(int x, int y){
+        return (x > imageX && y > imageY && x < imageX + imageWidth && y < imageY + imageHeight);
+    }
 
 }

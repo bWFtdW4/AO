@@ -15,7 +15,11 @@ public class HellsBellsView2 extends View {
     private Drawable backgroundImage;
     private Context c;
 
-    private int imageX, imageY, imageWidth, imageHeight;
+    private int imageX, imageY;
+    public int imageWidth, imageHeight;
+    private int canvasWidth, canvasHeight;
+
+    private boolean isInit = false;
 
     public HellsBellsView2(Context context) {
         super(context);
@@ -28,8 +32,8 @@ public class HellsBellsView2 extends View {
         backgroundImage = ContextCompat.getDrawable(context, R.drawable.hellsbells);
 
         //set the initial position of the image
-        //imageY = 0;
-        //imageX = 0;
+        imageY = 0;
+        imageX = 0;
         imageWidth = 500;
         imageHeight = 500;
     }
@@ -38,18 +42,51 @@ public class HellsBellsView2 extends View {
     protected void onDraw(Canvas canvas){
         canvas.drawColor(Color.BLACK);
 
-        drawTheImage(canvas);
+        if (!isInit){
+            canvasWidth = canvas.getWidth();
+            canvasHeight = canvas.getHeight();
+            isInit = true;
+        }
 
-    }
-
-    public void drawTheImage(Canvas canvas){
-        Random random = new Random();
-        this.imageX = random.nextInt(1000);
-        this.imageY = random.nextInt(1000);
         //draw the background image
-        backgroundImage.setBounds(this.imageX, this.imageY, imageWidth, imageHeight);
+        backgroundImage.setBounds(imageX, imageY, imageWidth, imageHeight);
         backgroundImage.draw(canvas);
-        invalidate();
 
     }
+
+    public int getImageX() {
+        return imageX;
+    }
+
+    public void setImageX(int imageX) {
+        this.imageX = imageX;
+    }
+
+    public int getImageY() {
+        return imageY;
+    }
+
+    public void setImageY(int imageY) {
+        this.imageY = imageY;
+    }
+
+    public int getCanvasWidth(){
+        return canvasWidth;
+    }
+
+    public int getCanvasHeight(){
+        return canvasHeight;
+    }
+
+    //override the onTouchEvent method for hellsBellsView.setOnTouchListener
+    //to handle the touch event on the screen
+    public boolean performClick() {
+        super.performClick();
+        return true;
+    }
+
+    public boolean isHit(int x, int y){
+        return (x > imageX && y > imageY && x < imageX + imageWidth && y < imageY + imageHeight);
+    }
+
 }
