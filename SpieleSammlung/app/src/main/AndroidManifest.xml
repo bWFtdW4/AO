@@ -16,6 +16,12 @@
             android:name=".HellsBellsGame"
             android:exported="false" />
         <activity
+            android:name=".HellsBellsGame2"
+            android:exported="false" />
+        <activity
+            android:name=".HellsBellsGame3"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>
