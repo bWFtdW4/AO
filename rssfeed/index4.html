@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    </head>
+    <body>
+        <div id="container">
+            <h3>Game List !</h3>
+            <div id="content"></div>
+        </div>
+        <script>
+            function displayGames(data){
+                console.log("game data success ! ! !");
+               
+                consol.log("liste: " + data.length);
+
+
+                $("#content").append("<ul></ul>");
+
+                //loop through the data get the object name and consol log
+                
+                /*
+                for(let i = 0; i < data.length; i++){
+                    let gameName = data[i].name;
+                    console.log("game" + gameName);
+                }
+                */
+
+            }
+
+
+            $(document).ready(function(){
+                console.log("ready");
+
+                jQuery.ajax({
+                    type: "GET",
+                    url: "https://ma1.mshome.net:8001/services/games/steam-all",
+                    dataType: "json",
+                    success: displayGames
+                });
+            })
+        
+        </script>
+        
+        
+  
+        
+    </body>
+</html>

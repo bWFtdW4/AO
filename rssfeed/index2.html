@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    </head>
+    <body>
+        <div id="container">
+            <h3>Game List</h3>
+            <div id="content"></div>
+        </div>
+        <!-- add a login -->
+        <div id="login">
+            <h3>Login</h3>
+            <form action="login.php" method="post">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" required>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+                <input type="submit" value="Login">
+            </form>
+
+        <!--implement login in jquery with ajax-->
+        <script>
+
+        $(document).ready(function(){
+            console.log("ready");
+
+            $("#login form").submit(function(event){
+                event.preventDefault();
+                console.log("submit");
+
+                let username = $("#username").val();
+                let password = $("#password").val();
+
+                console.log(username);
+                console.log(password);
+
+                jQuery.ajax({
+                    type: "GET",
+                    url: "https://ma1.mshome.net:8001/services/games/steam-all",
+                    data: {username: username, password: password},
+                    success: function(data){
+                        console.log(data);
+                        if(data == "success"){
+                            $("#login").hide();
+                            $("#container").show();
+                        }
+                    }
+                });
+            });
+        });
+        
+        </script>
+
+  
+        
+    </body>
+</html>
