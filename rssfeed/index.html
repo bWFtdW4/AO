@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>RSS Reader</title>
-    <style>
-        #container {
-            margin-left: 80px;
-            margin-right: 80px;
-            padding-left: 50px;
-            padding-top: 30px;
-            background-color: #9e6363;
-        }
-        hr{
-            background-color: aqua;
-            height: 5px;
-        }
-    </style>
+    <head>
+        <meta charset="utf-8">
+        <title>RSS Reader</title>
+        <style>
+            #container {
+                margin-left: 80px;
+                margin-right: 80px;
+                padding-left: 50px;
+                padding-top: 30px;
+                background-color: #9e6363;
+            }
+            hr{
+                background-color: aqua;
+                height: 5px;
+            }
+        </style>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-</head>
-<body>
-    <div id="container">
-        <h1>RSS feed: Heise</h1>
-        <hr></hr>
-        <div id = "content"></div>
-    </div>
+    </head>
+    <body>
+        <div id="container">
+            <h1>RSS feed: Heise</h1>
+            <hr></hr>
+            <div id = "content"></div>
+        </div>
 
-    <script>
-        function parseXML(rssxml){
-            console.log("rssxml success");
-            $("#content").append("<ul></ul>");
+        <script>
+            function parseXML(rssxml){
+                console.log("rssxml success");
+                $("#content").append("<ul></ul>");
 
-            $(rssxml).find('item').each(function(){
+                $(rssxml).find('item').each(function(){
 
-                let newsTitle=$(this).find('title').text();
-                console.log(newsTitle);
-                let newsLink=$(this).find('link').text();
-                console.log(newsLink);
+                    let newsTitle=$(this).find('title').text();
+                    console.log(newsTitle);
+                    let newsLink=$(this).find('link').text();
+                    console.log(newsLink);
 
-                $("<li></li>").html(newsTitle + "<br>"
-                +"<a href='" + newsLink + "'>LINK</a>").appendTo("#content ul");
+                    $("<li></li>").html(newsTitle + "<br>"
+                    +"<a href='" + newsLink + "'>LINK</a>").appendTo("#content ul");
+
+                });
+
+
+            }
+
+            $(document).ready(function(){
+                console.log("ready");
+                
+                jQuery.ajax({
+                    type:"GET",
+                    url:"https://www.heise.de/rss/heise.rdf",
+                    dataType:"xml",
+                    success:parseXML
+                });
 
             });
-
-
-        }
-
-        $(document).ready(function(){
-            console.log("ready");
-            
-            jQuery.ajax({
-                type:"GET",
-                url:"https://www.heise.de/rss/heise.rdf",
-                dataType:"xml",
-                success:parseXML
-            });
-
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>
